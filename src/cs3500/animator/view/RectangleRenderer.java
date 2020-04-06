@@ -19,6 +19,6 @@ public class RectangleRenderer implements ShapeRenderer {
     shape.setColor(state.getColor());
     shape.fillRect(
         state.getPos().getX(), state.getPos().getY(),
-        state.getDim().getW(), state.getDim().getH());
+        state.getDim().getH(), state.getDim().getW());
   }
 }
