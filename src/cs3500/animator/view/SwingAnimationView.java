@@ -25,7 +25,6 @@ public class SwingAnimationView extends JFrame implements AnimationView {
 
   private AnimationPanel panel;
   private AnimationModel model;
-  private final int tickrate;
   private Timer timer;
 
   /**
@@ -33,13 +32,12 @@ public class SwingAnimationView extends JFrame implements AnimationView {
    */
   public SwingAnimationView(AnimationModel model, int tickrate) {
     this.model = model;
-     timer = new Timer(100 / 1, new ActionListener() {
+     timer = new Timer(1000/ 1, new ActionListener() {
        @Override
        public void actionPerformed(ActionEvent e) {
          repaint();
        }
      });
-    this.tickrate = tickrate;
     setSize(
         model.getBounds().getDimensions().getW(),
         model.getBounds().getDimensions().getH());
@@ -68,10 +66,7 @@ public class SwingAnimationView extends JFrame implements AnimationView {
         }
       }
       panel.updateTimeline(new Timeline(states));
-      try {
-        TimeUnit.MILLISECONDS.sleep(100 / tickrate);
-      } catch (InterruptedException ignored) {
-      }
+
 
 
       this.timer.start();
