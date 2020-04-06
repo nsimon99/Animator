@@ -62,7 +62,7 @@ public final class Excellence {
         view = new TextView(model, System.out);
         break;
       case "visual":
-        view = new SwingAnimationView(model, ticksPerSecond); //TODO Constructor
+        view = new SwingAnimationView(model); //TODO Constructor
         break;
       default:
         throw new IllegalArgumentException("Invalid View Type");

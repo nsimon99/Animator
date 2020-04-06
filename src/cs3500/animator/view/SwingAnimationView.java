@@ -1,20 +1,14 @@
 package cs3500.animator.view;
 
+import cs3500.animator.model.AnimationModel;
 import cs3500.animator.model.Shape;
 import cs3500.animator.model.ShapeState;
-import cs3500.animator.model.ShapeType;
 import cs3500.animator.model.Timeline;
-import cs3500.animator.util.AnimationModelBuilder;
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
-import cs3500.animator.model.AnimationModel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.Timer;
 
 
@@ -30,9 +24,9 @@ public class SwingAnimationView extends JFrame implements AnimationView {
   /**
    * constructor for a view using builder.
    */
-  public SwingAnimationView(AnimationModel model, int tickrate) {
+  public SwingAnimationView(AnimationModel model) {
     this.model = model;
-     timer = new Timer(1000/ 1, new ActionListener() {
+     timer = new Timer(100/ 1, new ActionListener() {
        @Override
        public void actionPerformed(ActionEvent e) {
          repaint();
