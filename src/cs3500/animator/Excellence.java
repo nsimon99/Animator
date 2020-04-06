@@ -24,9 +24,9 @@ public final class Excellence {
    *             "type-of-view" -out "where-output-show-go" -speed "integer-ticks-per-second"
    */
   public static void main(String[] args) {
-    String inputFile = "";
-    String viewType = "";
-    String outputDest = "";
+    String inputFile = "hanoi.txt";
+    String viewType = "visual";
+    String outputDest = "-out";
     int ticksPerSecond = 1;
     for (int i = 0; i < args.length - 1; i++) {
       if (args[i].equals("-in")) {

@@ -6,6 +6,8 @@ import cs3500.animator.model.ShapeType;
 import cs3500.animator.model.Timeline;
 import cs3500.animator.util.AnimationModelBuilder;
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -13,6 +15,7 @@ import javax.swing.JFrame;
 import cs3500.animator.model.AnimationModel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.Timer;
 
 
 /**
@@ -23,12 +26,19 @@ public class SwingAnimationView extends JFrame implements AnimationView {
   private AnimationPanel panel;
   private AnimationModel model;
   private final int tickrate;
+  private Timer timer;
 
   /**
    * constuctor for a view using builder.
    */
   public SwingAnimationView(AnimationModel model, int tickrate) {
     this.model = model;
+     timer = new Timer(100 / 1, new ActionListener() {
+       @Override
+       public void actionPerformed(ActionEvent e) {
+         repaint();
+       }
+     });
     this.tickrate = tickrate;
     setSize(
         model.getBounds().getDimensions().getW(),
@@ -64,7 +74,7 @@ public class SwingAnimationView extends JFrame implements AnimationView {
       }
 
 
-      this.repaint();
+      this.timer.start();
       currentTick++;
     }
   }
