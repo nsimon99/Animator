@@ -21,14 +21,19 @@ public class SwingAnimationView extends JFrame implements AnimationView {
   private AnimationModel model;
   private Timer timer;
 
+  private int currentTick;
+
   /**
    * constructor for a view using builder.
    */
   public SwingAnimationView(AnimationModel model) {
     this.model = model;
+    currentTick = 0;
      timer = new Timer(100/ 1, new ActionListener() {
        @Override
        public void actionPerformed(ActionEvent e) {
+         currentTick++;
+         updateTimeline(currentTick);
          repaint();
        }
      });
@@ -45,28 +50,23 @@ public class SwingAnimationView extends JFrame implements AnimationView {
 
   @Override
   public void render() {
-    int currentTick = 0;
-    while (true) {
+    this.timer.start();
+    this.setVisible(true);
+   // while (true) { }
+  }
 
-      ArrayList<ShapeState> states = new ArrayList<>();
-      this.setVisible(true);
+  private void updateTimeline(int currentTick) {
+    ArrayList<ShapeState> states = new ArrayList<>();
 
-      for (Map.Entry<String, Shape> entry : model.getElements().entrySet()) {
-        var currentShapeLog = entry.getValue().getTimeline().getLog();
-        if (currentTick < currentShapeLog.size()) {
-          ShapeState currentState = currentShapeLog.get(currentTick);
-          if (currentState != null) {
-            states.add(currentState);
-          }
+    for (Map.Entry<String, Shape> entry : model.getElements().entrySet()) {
+      var currentShapeLog = entry.getValue().getTimeline().getLog();
+      if (currentTick < currentShapeLog.size()) {
+        ShapeState currentState = currentShapeLog.get(currentTick);
+        if (currentState != null) {
+          states.add(currentState);
         }
       }
-      panel.updateTimeline(new Timeline(states));
-
-
-
-
-      this.timer.start();
-      currentTick++;
     }
+    panel.updateTimeline(new Timeline(states));
   }
 }
