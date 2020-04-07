@@ -57,12 +57,17 @@ public class SwingAnimationView extends JFrame implements AnimationView {
 
     for (Map.Entry<String, Shape> entry : model.getElements().entrySet()) {
       var currentShapeLog = entry.getValue().getTimeline().getLog();
-      if (currentTick < currentShapeLog.size()) {
+      for (ShapeState state : currentShapeLog) {
+        if(state.getTick() == currentTick) {
+          states.add(state);
+        }
+      }
+      /*if (currentTick < currentShapeLog.size()) {
         ShapeState currentState = currentShapeLog.get(currentTick);
         if (currentState != null) {
           states.add(currentState);
         }
-      }
+      }*/
     }
     panel.updateTimeline(new Timeline(states));
   }
