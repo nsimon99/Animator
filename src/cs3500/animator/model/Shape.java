@@ -30,8 +30,9 @@ public class Shape {
 
   /**
    * Constructs a new Shape Object.
+   *
    * @param id the ID of the Shape.
-   * @param t the type of the Shape.
+   * @param t  the type of the Shape.
    */
   public Shape(String id, ShapeType t) {
     this.id = id;
@@ -48,7 +49,9 @@ public class Shape {
    * @param c    the color of the shape
    */
   public void addState(int tick, Position pos, Dimension dim, Color c) {
-    timeline.append(new ShapeState(tick, pos, dim, c, this.type));
+    var state = new ShapeState(tick, pos, dim, c, this.type);
+    timeline.append(state);
+    this.addBetweenStates(state);
   }
 
   /**
@@ -76,5 +79,64 @@ public class Shape {
    */
   public ShapeType getType() {
     return type;
+  }
+
+  /**
+   * Add the in between states for each tick between the given tick and previous tick in the
+   * timeline. 𝑓(𝑡)=𝑎((𝑡𝑏−𝑡)/(𝑡𝑏−𝑡𝑎))+𝑏((𝑡−𝑡𝑎)/(𝑡𝑏−𝑡𝑎))
+   *
+   * @param state the state to add.
+   */
+  private void addBetweenStates(ShapeState state) {
+    timeline.sort();
+    int stateIndx = timeline.getLog().lastIndexOf(state) - 1;
+    if(stateIndx < 0) {
+      return;
+    }
+    ShapeState prevState = timeline.get(stateIndx);
+
+    int ta = prevState.getTick();
+    int tb = state.getTick();
+
+    Dimension da = prevState.getDim();
+    Dimension db = state.getDim();
+
+    Position pa = prevState.getPos();
+    Position pb = state.getPos();
+
+    Color ca = prevState.getColor();
+    Color cb = state.getColor();
+
+    for (int t = ta + 1; t < tb; t++) {
+      int ht = calculateBetweenValue(t, ta, tb, da.getHeight(), db.getHeight());
+      int wt = calculateBetweenValue(t, ta, tb, da.getWidth(), db.getWidth());
+      Dimension dt = new Dimension(ht, wt);
+
+      int xt = calculateBetweenValue(t, ta, tb, pa.getX(), pb.getX());
+      int yt = calculateBetweenValue(t, ta, tb, pa.getY(), pb.getY());
+      Position pt = new Position(xt, yt);
+
+      int rt = calculateBetweenValue(t, ta, tb, ca.getRed(), cb.getRed());
+      int gt = calculateBetweenValue(t, ta, tb, ca.getGreen(), cb.getGreen());
+      int bt = calculateBetweenValue(t, ta, tb, ca.getBlue(), cb.getBlue());
+      Color ct = new Color(rt, gt, bt);
+
+      ShapeState stateT = new ShapeState(t, pt, dt, ct, state.getType());
+      timeline.append(stateT);
+    }
+  }
+
+  /**
+   * 𝑓(𝑡)=𝑎((𝑡𝑏−𝑡)/(𝑡𝑏−𝑡𝑎))+𝑏((𝑡−𝑡𝑎)/(𝑡𝑏−𝑡𝑎)).
+   * @param ta = ta
+   * @param tb = tb
+   * @param t = t
+   * @param a = a
+   * @param b = b
+   * @return the value at time T (f(t))
+   */
+  private int calculateBetweenValue(int t, int ta, int tb, int a, int b) {
+    return (int)((a * ((double)(tb - t)/(double)(tb - ta)))
+        + (b * ((double)(t - ta)/(double)(tb - ta))));
   }
 }

@@ -1,6 +1,8 @@
 package cs3500.animator.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Objects;
 
 
@@ -84,5 +86,12 @@ public class Timeline {
 
   ShapeState get(int i) {
     return log.get(i);
+  }
+
+  /**
+   * Sort the elements of the timeline by tick.
+   */
+  protected void sort() {
+    Collections.sort(this.log);
   }
 }
