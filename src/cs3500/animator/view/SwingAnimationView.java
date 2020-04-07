@@ -17,11 +17,11 @@ import javax.swing.Timer;
  */
 public class SwingAnimationView extends JFrame implements AnimationView {
 
-  private AnimationPanel panel;
-  private AnimationModel model;
-  private Timer timer;
+  protected AnimationPanel panel;
+  protected AnimationModel model;
+  protected Timer timer;
 
-  private int currentTick;
+  protected int currentTick;
 
   /**
    * constructor for a view using builder.
@@ -29,13 +29,10 @@ public class SwingAnimationView extends JFrame implements AnimationView {
   public SwingAnimationView(AnimationModel model) {
     this.model = model;
     currentTick = 0;
-     timer = new Timer(100/ 1, new ActionListener() {
-       @Override
-       public void actionPerformed(ActionEvent e) {
-         currentTick++;
-         updateTimeline(currentTick);
-         repaint();
-       }
+     timer = new Timer(100, e -> {
+       currentTick++;
+       updateTimeline(currentTick);
+       repaint();
      });
     setSize(
         model.getBounds().getDimensions().getW(),

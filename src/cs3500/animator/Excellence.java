@@ -5,6 +5,7 @@ import cs3500.animator.util.AnimationBuilder;
 import cs3500.animator.util.AnimationModelBuilder;
 import cs3500.animator.util.AnimationReader;
 import cs3500.animator.view.AnimationView;
+import cs3500.animator.view.EditorView;
 import cs3500.animator.view.SVGView;
 import cs3500.animator.view.SwingAnimationView;
 import cs3500.animator.view.TextView;
@@ -24,8 +25,8 @@ public final class Excellence {
    *             "type-of-view" -out "where-output-show-go" -speed "integer-ticks-per-second"
    */
   public static void main(String[] args) {
-    String inputFile = "smalldemo.txt";
-    String viewType = "visual";
+    String inputFile = "hanoi.txt";
+    String viewType = "editor";
     String outputDest = "-out";
     int ticksPerSecond = 1;
     for (int i = 0; i < args.length - 1; i++) {
@@ -62,7 +63,10 @@ public final class Excellence {
         view = new TextView(model, System.out);
         break;
       case "visual":
-        view = new SwingAnimationView(model); //TODO Constructor
+        view = new SwingAnimationView(model);
+        break;
+      case "editor":
+        view = new EditorView(model);
         break;
       default:
         throw new IllegalArgumentException("Invalid View Type");

@@ -5,6 +5,7 @@ package cs3500.animator.controller;
 
 import cs3500.animator.model.AnimationModel;
 import cs3500.animator.view.AnimationView;
+import cs3500.animator.view.EditorView;
 import cs3500.animator.view.SVGView;
 import cs3500.animator.view.SwingAnimationView;
 import cs3500.animator.view.TextView;
@@ -15,10 +16,12 @@ import cs3500.animator.view.TextView;
  */
 
 public class Controller implements IController {
+
   AnimationModel model;
 
   /**
    * constructor for the controller.
+   *
    * @param model model being implemented.
    * @throws IllegalStateException if model is null
    */
@@ -43,14 +46,19 @@ public class Controller implements IController {
         view = new SwingAnimationView(model);
         break;
       case "editor":
-        //implement editor controller
+        view = new EditorView(model);
       default:
         throw new IllegalArgumentException("Invalid View");
     }
-    System.out.println("ehy");
 
     view.render();
   }
+
+  @Override
+  public String getString() {
+    return model.renderText();
+  }
+
 
 }
 
