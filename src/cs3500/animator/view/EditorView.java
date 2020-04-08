@@ -2,7 +2,6 @@ package cs3500.animator.view;
 
 import cs3500.animator.model.AnimationModel;
 import java.awt.event.ActionEvent;
-import java.util.concurrent.atomic.AtomicReference;
 import javax.swing.JButton;
 
 
@@ -11,6 +10,8 @@ import javax.swing.JButton;
  */
 public class EditorView extends SwingAnimationView {
 
+  boolean canLoop;
+
   /**
    * constructor for a view using builder.
    *
@@ -18,7 +19,7 @@ public class EditorView extends SwingAnimationView {
    */
   public EditorView(AnimationModel model) {
     super(model);
-
+    canLoop = true;
 
     JButton start = new JButton("Start");
     start.addActionListener((ActionEvent e) -> {
@@ -56,14 +57,35 @@ public class EditorView extends SwingAnimationView {
 
 
     JButton decreaseSpeed = new JButton("Decrease Speed");
-
     decreaseSpeed.addActionListener((ActionEvent e) -> {
       timer.setDelay(200);
     });
     panel.add(decreaseSpeed);
 
+    JButton enableLoop = new JButton("Enable Loop");
+    enableLoop.addActionListener((ActionEvent e) -> {
+          canLoop = true;
+          lastState();
+        });
+    panel.add(enableLoop);
+
+      JButton disableLoop = new JButton("Disable Loop");
+      disableLoop.addActionListener((ActionEvent e) -> {
+        canLoop = false;
+    });
+    panel.add(disableLoop);
 
 
+
+
+  }
+  public void lastState() {
+    panel.timeline.sort();
+    if (panel.timeline.get(currentTick) == panel.timeline.get(panel.timeline.size() - 1)) {
+      timer.stop();
+      EditorView newView = new EditorView(this.model);
+      newView.render();
+    }
 
   }
 }
