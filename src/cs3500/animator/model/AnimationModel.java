@@ -42,6 +42,7 @@ public interface AnimationModel {
 
   /**
    * Get the Shape with the given name.
+   *
    * @param name the name of the Shape.
    * @return the Shape.
    */
@@ -49,6 +50,7 @@ public interface AnimationModel {
 
   /**
    * Get all of the elements of the model.
+   *
    * @return a Map of all the Shapes in the model.
    */
   Map<String, Shape> getElements();
@@ -78,30 +80,22 @@ public interface AnimationModel {
   String renderText();
 
   /**
-   * Add a new Keyframe to the given shape.
+   * Add a keyframe to the given shape at the given tick.
+   *
    * @param name the name of the shape.
-   * @param t the tick of the new keyframe.
-   * @param x the x position of the keyframe.
-   * @param y the y position of the keyframe.
-   * @param w the width of the shape at they keyframe.
-   * @param h the height of the shape at the keyframe.
-   * @param r the red value of shape at the keyframe.
-   * @param g the green value of the shape at the keyframe.
-   * @param b th blue value of the shape at the keyframe.
+   * @param t    the value of the tick.
    * @throws IllegalArgumentException if there is no shape with the given ID.
    */
-  void addKeyframe(String name, int t, int x, int y, int w,
-      int h, int r, int g, int b);
+  void addKeyframe(String name, int t);
 
   /**
    * Delete the keyframe of the given shape at the given tick.
+   *
    * @param name the name of the shape.
-   * @param t the value of the tick.
+   * @param t    the value of the tick.
    * @throws IllegalArgumentException if there is no shape with the given ID.
    */
   void deleteKeyframe(String name, int t);
-
-
 
 
 }

@@ -16,7 +16,7 @@ public class ShapeState implements Comparable<ShapeState> {
   private final Color color;
   private final ShapeType type;
 
-  protected final StateType stateType;
+  protected StateType stateType;
 
   /**
    * Construct a new ShapeState object.

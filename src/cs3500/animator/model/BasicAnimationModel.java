@@ -90,9 +90,15 @@ public class BasicAnimationModel implements AnimationModel {
   }
 
   @Override
-  public void addKeyframe(String name, int t, int x, int y, int w, int h, int r, int g, int b) {
+  public void addKeyframe(String name, int t) {
     if (elements.containsKey(name)) {
-      this.updateElement(name, t, new Position(x, y), new Dimension(h, w), new Color(r, g, b));
+      var timelineList = this.elements.get(name).getTimeline().getLog();
+      for(ShapeState state : timelineList) {
+        if(state.getTick() == t) {
+          state.stateType = StateType.KEYFRAME;
+          break;
+        }
+      }
     }
     else {
       throw new IllegalArgumentException("No shape with ID: " + name);
