@@ -88,4 +88,38 @@ public class BasicAnimationModel implements AnimationModel {
     }
     return result.toString();
   }
+
+  @Override
+  public void addKeyframe(String name, int t, int x, int y, int w, int h, int r, int g, int b) {
+    if (elements.containsKey(name)) {
+      this.updateElement(name, t, new Position(x, y), new Dimension(h, w), new Color(r, g, b));
+    }
+    else {
+      throw new IllegalArgumentException("No shape with ID: " + name);
+    }
+  }
+
+  @Override
+  public void deleteKeyframe(String name, int t) {
+    if(elements.containsKey(name)) {
+      var timelineList = this.elements.get(name).getTimeline().getLog();
+      var indexOfLastKeyframe = 0;
+      for (int i = 0; i < timelineList.size(); i++) {
+        ShapeState state = timelineList.get(i);
+        if (state.getTick() == t) {
+          timelineList.remove(i);
+          for (int j = indexOfLastKeyframe + 1; j < i; j++) {
+            timelineList.remove(indexOfLastKeyframe + 1);
+          }
+          break;
+        } else if (state.stateType == StateType.KEYFRAME) {
+          indexOfLastKeyframe = i;
+        }
+      }
+    }
+    else {
+      throw new IllegalArgumentException("No shape with ID: " + name);
+    }
+
+  }
 }

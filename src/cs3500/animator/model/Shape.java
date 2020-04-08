@@ -25,7 +25,7 @@ public class Shape {
   public Shape(String id, int tick, Position pos, Dimension dim, Color c, ShapeType t) {
     this.id = id;
     this.type = t;
-    this.timeline = new Timeline(new ShapeState(tick, pos, dim, c, t));
+    this.timeline = new Timeline(new ShapeState(tick, pos, dim, c, t, StateType.KEYFRAME));
   }
 
   /**
@@ -49,7 +49,7 @@ public class Shape {
    * @param c    the color of the shape
    */
   public void addState(int tick, Position pos, Dimension dim, Color c) {
-    var state = new ShapeState(tick, pos, dim, c, this.type);
+    var state = new ShapeState(tick, pos, dim, c, this.type, StateType.KEYFRAME);
     timeline.append(state);
     this.addBetweenStates(state);
   }
@@ -121,7 +121,7 @@ public class Shape {
       int bt = calculateBetweenValue(t, ta, tb, ca.getBlue(), cb.getBlue());
       Color ct = new Color(rt, gt, bt);
 
-      ShapeState stateT = new ShapeState(t, pt, dt, ct, state.getType());
+      ShapeState stateT = new ShapeState(t, pt, dt, ct, state.getType(), StateType.BETWEENFRAME);
       timeline.append(stateT);
     }
   }
