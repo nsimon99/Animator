@@ -4,8 +4,6 @@ import cs3500.animator.model.AnimationModel;
 import cs3500.animator.model.Shape;
 import cs3500.animator.model.ShapeState;
 import cs3500.animator.model.Timeline;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.swing.JFrame;
@@ -49,7 +47,6 @@ public class SwingAnimationView extends JFrame implements AnimationView {
   public void render() {
     this.timer.start();
     this.setVisible(true);
-   // while (true) { }
   }
 
   private void updateTimeline(int currentTick) {
@@ -62,12 +59,6 @@ public class SwingAnimationView extends JFrame implements AnimationView {
           states.add(state);
         }
       }
-      /*if (currentTick < currentShapeLog.size()) {
-        ShapeState currentState = currentShapeLog.get(currentTick);
-        if (currentState != null) {
-          states.add(currentState);
-        }
-      }*/
     }
     panel.updateTimeline(new Timeline(states));
   }
