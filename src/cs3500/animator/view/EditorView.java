@@ -2,6 +2,7 @@ package cs3500.animator.view;
 
 import cs3500.animator.model.AnimationModel;
 import java.awt.event.ActionEvent;
+import java.util.Collections;
 import javax.swing.JButton;
 
 
@@ -80,8 +81,9 @@ public class EditorView extends SwingAnimationView {
 
   }
   public void lastState() {
-    panel.timeline.sort();
-    if (panel.timeline.get(currentTick) == panel.timeline.get(panel.timeline.size() - 1)) {
+    var timelineList = panel.getTimeLineAsList();
+    Collections.sort(timelineList);
+    if (timelineList.get(currentTick) == timelineList.get(timelineList.size() - 1)) {
       timer.stop();
       EditorView newView = new EditorView(this.model);
       newView.render();

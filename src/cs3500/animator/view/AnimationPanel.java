@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import javax.swing.JPanel;
@@ -63,5 +64,13 @@ public class AnimationPanel extends JPanel {
         renderer.renderShape(g2d);
       }
     }
+  }
+
+  /**
+   * Get a copy of this panels timeline as a List of ShapeState.
+   * @return a copy of this panels timeline as a List of ShapeState.
+   */
+  protected List<ShapeState> getTimeLineAsList() {
+    return new ArrayList<>(this.timeline.getLog());
   }
 }
