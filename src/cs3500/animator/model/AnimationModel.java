@@ -97,5 +97,12 @@ public interface AnimationModel {
    */
   void deleteKeyframe(String name, int t);
 
+  /**
+   * Gets the last tick value of this model.
+   * @return the last tick value.
+   */
+  int getLastTick();
+
+
 
 }

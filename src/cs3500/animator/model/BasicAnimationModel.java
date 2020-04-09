@@ -128,4 +128,15 @@ public class BasicAnimationModel implements AnimationModel {
     }
 
   }
+
+  @Override
+  public int getLastTick() {
+    int lastTick = 0;
+    for (Shape shape : this.getElements().values()) {
+      shape.getTimeline().sort();
+      int shapeLastTick = shape.getTimeline().get(shape.getTimeline().size() - 1).getTick();
+      lastTick = shapeLastTick > lastTick ? shapeLastTick : lastTick;
+    }
+    return lastTick;
+  }
 }

@@ -78,16 +78,23 @@ public class EditorView extends SwingAnimationView {
     panel.add(disableLoop);
 
 //call method that loops if looping is enabled
-lastState();
+//lastState();
 
 
+  }
+
+  @Override
+  protected void updateTimeline() {
+    // if looping and if it's the last tick, set tick to 0.
+    this.currentTick = canLoop && currentTick >= model.getLastTick() ? 0 : currentTick;
+
+    super.updateTimeline();
   }
 
   /**
    * Checks if looping is enabled and loops animation is allowed.
    */
-  
-  private void lastState() {
+  /*private void lastState() {
 //    var timelineList = panel.getTimeLineAsList();
 //    Collections.sort(timelineList);
     while (canLoop) {
@@ -103,8 +110,8 @@ lastState();
             newView.render();
           }
         }
+      }
     }
-    }
-  }
+  }*/
 
 }

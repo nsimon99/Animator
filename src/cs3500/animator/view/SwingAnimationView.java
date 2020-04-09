@@ -29,7 +29,7 @@ public class SwingAnimationView extends JFrame implements AnimationView {
     currentTick = 0;
      timer = new Timer(100, e -> {
        currentTick++;
-       updateTimeline(currentTick);
+       updateTimeline();
        repaint();
      });
     setSize(
@@ -49,7 +49,7 @@ public class SwingAnimationView extends JFrame implements AnimationView {
     this.setVisible(true);
   }
 
-  private void updateTimeline(int currentTick) {
+  protected void updateTimeline() {
     ArrayList<ShapeState> states = new ArrayList<>();
 
     for (Map.Entry<String, Shape> entry : model.getElements().entrySet()) {
