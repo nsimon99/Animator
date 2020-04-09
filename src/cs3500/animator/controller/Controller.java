@@ -47,6 +47,7 @@ public class Controller implements IController {
         break;
       case "editor":
         view = new EditorView(model);
+        break;
       default:
         throw new IllegalArgumentException("Invalid View");
     }

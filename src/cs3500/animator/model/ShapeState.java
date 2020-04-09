@@ -2,7 +2,6 @@ package cs3500.animator.model;
 
 import java.awt.Color;
 import java.util.Objects;
-import javax.swing.plaf.nimbus.State;
 
 /**
  * A class to represent the state of a Shape in an animation. The state is the position, dimension,
@@ -21,10 +20,10 @@ public class ShapeState implements Comparable<ShapeState> {
   /**
    * Construct a new ShapeState object.
    *
-   * @param tick  the tick that the state represents.
-   * @param pos   the Position of the Shape at the given tick.
-   * @param dim   the Dimension of the Shape at the given tick.
-   * @param color the Color of the Shape at the given tick.
+   * @param tick      the tick that the state represents.
+   * @param pos       the Position of the Shape at the given tick.
+   * @param dim       the Dimension of the Shape at the given tick.
+   * @param color     the Color of the Shape at the given tick.
    * @param stateType the type of state (keyframe or between frame).
    */
   public ShapeState(int tick, Position pos, Dimension dim, Color color,

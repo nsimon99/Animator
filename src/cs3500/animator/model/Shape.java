@@ -149,7 +149,7 @@ public class Shape {
    */
   private int getIndexOfLastKeyFrame(int i) {
     for (int j = i - 1; j >= 0; j++) {
-      if(timeline.get(j).stateType == StateType.KEYFRAME) {
+      if (timeline.get(j).stateType == StateType.KEYFRAME) {
         return j;
       }
     }

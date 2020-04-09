@@ -10,6 +10,9 @@ import cs3500.animator.model.ShapeType;
 import java.awt.Color;
 import org.junit.Test;
 
+/**
+ * Unit tests for controller.
+ */
 public class ControllerTests {
 
   @Test

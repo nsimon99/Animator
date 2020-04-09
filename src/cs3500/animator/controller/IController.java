@@ -14,9 +14,8 @@ public interface IController {
   void playAnimation(String viewType);
 
   /**
-   * Returns text version of given view and model
+   * Returns text version of given view and model.
    */
-
   String getString();
 
 }

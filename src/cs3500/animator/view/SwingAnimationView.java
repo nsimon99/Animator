@@ -27,11 +27,11 @@ public class SwingAnimationView extends JFrame implements AnimationView {
   public SwingAnimationView(AnimationModel model) {
     this.model = model;
     currentTick = 0;
-     timer = new Timer(100, e -> {
-       currentTick++;
-       updateTimeline();
-       repaint();
-     });
+    timer = new Timer(100, e -> {
+      currentTick++;
+      updateTimeline();
+      repaint();
+    });
     setSize(
         model.getBounds().getDimensions().getW(),
         model.getBounds().getDimensions().getH());
@@ -55,7 +55,7 @@ public class SwingAnimationView extends JFrame implements AnimationView {
     for (Map.Entry<String, Shape> entry : model.getElements().entrySet()) {
       var currentShapeLog = entry.getValue().getTimeline().getLog();
       for (ShapeState state : currentShapeLog) {
-        if(state.getTick() == currentTick) {
+        if (state.getTick() == currentTick) {
           states.add(state);
         }
       }
