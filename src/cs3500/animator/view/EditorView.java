@@ -1,11 +1,8 @@
 package cs3500.animator.view;
 
 import cs3500.animator.model.AnimationModel;
-import cs3500.animator.model.Shape;
-import cs3500.animator.model.ShapeState;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
-import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -46,9 +43,8 @@ public class EditorView extends SwingAnimationView {
 
     JButton restart = new JButton("Restart");
     restart.addActionListener((ActionEvent e) -> {
-      timer.stop();
-      EditorView newView = new EditorView(this.model);
-      newView.render();
+      currentTick = 0;
+      super.updateTimeline();
     });
     panel.add(restart);
 
