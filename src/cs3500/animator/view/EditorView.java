@@ -17,6 +17,7 @@ public class EditorView extends SwingAnimationView {
   private boolean waitingForClick = false;
   private boolean waitingToAdd = false;
   private boolean waitingToDelete = false;
+  private boolean waitingToEdit = false;
 
   /**
    * constructor for a view using builder.
@@ -100,6 +101,17 @@ public class EditorView extends SwingAnimationView {
       waitingToDelete = true;
     });
     panel.add(removeKeyframe);
+
+    JButton editKeyframe = new JButton("Edit Keyframe");
+    editKeyframe.addActionListener((ActionEvent e) -> {
+      timer.stop();
+      JOptionPane.showMessageDialog(this,
+          "Click on the shape you want edit");
+
+      this.waitForClick();
+      waitingToEdit = true;
+    });
+    panel.add(editKeyframe);
   }
 
   @Override
@@ -120,6 +132,9 @@ public class EditorView extends SwingAnimationView {
       if (waitingToDelete) {
         removeKeyframeOnClick(me.getX(), me.getY(), currentTick);
       }
+      if (waitingToEdit) {
+        editKeyFrameOnClick(me.getX(), me.getY(), currentTick);
+      }
       timer.start();
     }
   }
@@ -129,25 +144,87 @@ public class EditorView extends SwingAnimationView {
     waitingForClick = true;
   }
 
+  /**
+   * Add a keyframe at the given time/position. If there is no shape at the given position, alert
+   * the user.
+   *
+   * @param y the y coord.
+   * @param t the tick.
+   */
   private void addKeyframeOnClick(int x, int y, int t) {
     try {
       String shapeId = model.getShapeAtPosition(x, y, t);
       model.addKeyframe(shapeId, t);
-    }
-    catch (IllegalArgumentException e) {
+    } catch (IllegalArgumentException e) {
       JOptionPane.showMessageDialog(this,
           "No shape at given position!");
     }
+    waitingToAdd = false;
   }
 
+  /**
+   * Delete a keyframe at the given time/position. If there is no shape at the given position, alert
+   * the user.
+   *
+   * @param x the x coord.
+   * @param y the y coord.
+   * @param t the tick.
+   */
   private void removeKeyframeOnClick(int x, int y, int t) {
     try {
       String shapeId = model.getShapeAtPosition(x, y, t);
       model.deleteKeyframe(shapeId, t);
-    }
-    catch (IllegalArgumentException e) {
+    } catch (IllegalArgumentException e) {
       JOptionPane.showMessageDialog(this,
           "No shape at given position!");
     }
+    waitingToDelete = false;
+  }
+
+  /**
+   * Get user input and modify a keyframe at the given position. If the selected frame is not a
+   * keyframe, make it one.
+   *
+   * @param x the x coord.
+   * @param y the y coord.
+   * @param t the tick.
+   */
+  private void editKeyFrameOnClick(int x, int y, int t) {
+    try {
+      String shapeId = model.getShapeAtPosition(x, y, t);
+      int newX = getIntegerInput("Input a new X value", 0, Integer.MAX_VALUE);
+      int newY = getIntegerInput("Input a new Y value", 0, Integer.MAX_VALUE);
+      int newH = getIntegerInput("Input a new height value", 0, Integer.MAX_VALUE);
+      int newW = getIntegerInput("Input a new width value", 0, Integer.MAX_VALUE);
+      int newR = getIntegerInput("Input a new red value", 0, 255);
+      int newG = getIntegerInput("Input a new green value", 0, 255);
+      int newB = getIntegerInput("Input a new blue value", 0, 255);
+      model.editKeyframe(shapeId, t, newX, newY, newW, newH, newR, newG, newB);
+    } catch (IllegalArgumentException e) {
+      JOptionPane.showMessageDialog(this,
+          "No shape at given position!");
+    }
+    waitingToEdit = false;
+  }
+
+  private int getIntegerInput(String msg, int min, int max) {
+    boolean waiting = true;
+    int val = 0;
+    while (waiting) {
+      try {
+        val = Integer.parseInt(JOptionPane.showInputDialog(msg));
+        waiting = false;
+      } catch (NumberFormatException e) {
+        val = Integer.parseInt(
+            JOptionPane
+                .showInputDialog(msg + "\nInput MUST be a numeric value."));
+      }
+      if (val < min || val > max) {
+        JOptionPane.showMessageDialog(this,
+            "Value must be between " + min + " and " + max);
+        waiting = true;
+      }
+    }
+    return val;
   }
 }

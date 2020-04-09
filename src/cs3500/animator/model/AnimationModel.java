@@ -115,4 +115,20 @@ public interface AnimationModel {
    */
   String getShapeAtPosition(int x, int y, int t);
 
+  /**
+   * Edit the given keyframe with the given parameters. If the frame is not currently a keyframe,
+   * make it one.
+   *
+   * @param name the ID of the shape.
+   * @param t the tick.
+   * @param x the new x coord.
+   * @param y the new y coord.
+   * @param w the new width.
+   * @param h the new height.
+   * @param r the new red value.
+   * @param g the new green value.
+   * @param b the new blue value.
+   */
+  void editKeyframe(String name, int t, int x, int y, int w, int h, int r, int g, int b);
+
 }

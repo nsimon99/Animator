@@ -154,4 +154,11 @@ public class BasicAnimationModel implements AnimationModel {
     }
     throw new IllegalArgumentException("No shape at given position");
   }
+
+  @Override
+  public void editKeyframe(String name, int t, int x, int y, int w, int h, int r, int g, int b) {
+    Timeline timeline = elements.get(name).getTimeline();
+    deleteKeyframe(name, t);
+    updateElement(name, t, new Position(x, y), new Dimension(h, w), new Color(r, g, b));
+  }
 }

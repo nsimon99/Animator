@@ -89,11 +89,11 @@ public class Shape {
    */
   private void addBetweenStates(ShapeState state) {
     timeline.sort();
-    int stateIndx = timeline.getLog().lastIndexOf(state) - 1;
-    if(stateIndx < 0) {
+    int stateIndx = timeline.getLog().lastIndexOf(state);
+    if (stateIndx < 0) {
       return;
     }
-    ShapeState prevState = timeline.get(stateIndx);
+    ShapeState prevState = timeline.get(getIndexOfLastKeyFrame(stateIndx));
 
     int ta = prevState.getTick();
     int tb = state.getTick();
@@ -128,15 +128,31 @@ public class Shape {
 
   /**
    * 𝑓(𝑡)=𝑎((𝑡𝑏−𝑡)/(𝑡𝑏−𝑡𝑎))+𝑏((𝑡−𝑡𝑎)/(𝑡𝑏−𝑡𝑎)).
+   *
    * @param ta = ta
    * @param tb = tb
-   * @param t = t
-   * @param a = a
-   * @param b = b
+   * @param t  = t
+   * @param a  = a
+   * @param b  = b
    * @return the value at time T (f(t))
    */
   private int calculateBetweenValue(int t, int ta, int tb, int a, int b) {
-    return (int)((a * ((double)(tb - t)/(double)(tb - ta)))
-        + (b * ((double)(t - ta)/(double)(tb - ta))));
+    return (int) ((a * ((double) (tb - t) / (double) (tb - ta)))
+        + (b * ((double) (t - ta) / (double) (tb - ta))));
+  }
+
+  /**
+   * Get the last keyframe before the frame at i.
+   *
+   * @param i the index to search up to (not inclusive).
+   * @return the index of the last keyframe before i.
+   */
+  private int getIndexOfLastKeyFrame(int i) {
+    for (int j = i - 1; j >= 0; j++) {
+      if(timeline.get(j).stateType == StateType.KEYFRAME) {
+        return j;
+      }
+    }
+    return i;
   }
 }
