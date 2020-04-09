@@ -1,8 +1,10 @@
 package cs3500.animator.view;
 
 import cs3500.animator.model.AnimationModel;
+import cs3500.animator.model.Shape;
+import cs3500.animator.model.ShapeState;
 import java.awt.event.ActionEvent;
-import java.util.Collections;
+import java.util.Map;
 import javax.swing.JButton;
 
 
@@ -12,7 +14,6 @@ import javax.swing.JButton;
 public class EditorView extends SwingAnimationView {
 
   boolean canLoop;
-
   /**
    * constructor for a view using builder.
    *
@@ -20,7 +21,8 @@ public class EditorView extends SwingAnimationView {
    */
   public EditorView(AnimationModel model) {
     super(model);
-    canLoop = true;
+    canLoop = false;
+
 
     JButton start = new JButton("Start");
     start.addActionListener((ActionEvent e) -> {
@@ -66,7 +68,6 @@ public class EditorView extends SwingAnimationView {
     JButton enableLoop = new JButton("Enable Loop");
     enableLoop.addActionListener((ActionEvent e) -> {
           canLoop = true;
-          lastState();
         });
     panel.add(enableLoop);
 
@@ -76,18 +77,34 @@ public class EditorView extends SwingAnimationView {
     });
     panel.add(disableLoop);
 
-
+//call method that loops if looping is enabled
+lastState();
 
 
   }
-  public void lastState() {
-    var timelineList = panel.getTimeLineAsList();
-    Collections.sort(timelineList);
-    if (timelineList.get(currentTick) == timelineList.get(timelineList.size() - 1)) {
-      timer.stop();
-      EditorView newView = new EditorView(this.model);
-      newView.render();
+
+  /**
+   * Checks if looping is enabled and loops animation is allowed.
+   */
+  
+  private void lastState() {
+//    var timelineList = panel.getTimeLineAsList();
+//    Collections.sort(timelineList);
+    while (canLoop) {
+      for (Map.Entry<String, Shape> entry : model.getElements().entrySet()) {
+        var currentShapeLog = entry.getValue().getTimeline().getLog();
+        for (ShapeState state : currentShapeLog) {
+          while (state.getTick() == currentTick
+              && currentShapeLog.get(currentShapeLog.size() - 1) == state) {
+
+////    if (timelineList.get(currentTick) == timelineList.get(timelineList.size() - 1)) {
+            timer.stop();
+            EditorView newView = new EditorView(this.model);
+            newView.render();
+          }
+        }
     }
-
+    }
   }
+
 }
