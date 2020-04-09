@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 public class EditorView extends SwingAnimationView {
 
   boolean canLoop;
+
   /**
    * constructor for a view using builder.
    *
@@ -24,13 +25,11 @@ public class EditorView extends SwingAnimationView {
     super(model);
     canLoop = false;
 
-
     JButton start = new JButton("Start");
     start.addActionListener((ActionEvent e) -> {
       timer.start();
     });
     panel.add(start);
-
 
     JButton pause = new JButton("Pause");
     pause.addActionListener((ActionEvent e) -> {
@@ -59,7 +58,6 @@ public class EditorView extends SwingAnimationView {
     });
     panel.add(speedUp);
 
-
     JButton decreaseSpeed = new JButton("Decrease Speed");
     decreaseSpeed.addActionListener((ActionEvent e) -> {
       timer.setDelay(200);
@@ -68,13 +66,13 @@ public class EditorView extends SwingAnimationView {
 
     JButton enableLoop = new JButton("Enable Loop");
     enableLoop.addActionListener((ActionEvent e) -> {
-          canLoop = true;
-        });
+      canLoop = true;
+    });
     panel.add(enableLoop);
 
-      JButton disableLoop = new JButton("Disable Loop");
-      disableLoop.addActionListener((ActionEvent e) -> {
-        canLoop = false;
+    JButton disableLoop = new JButton("Disable Loop");
+    disableLoop.addActionListener((ActionEvent e) -> {
+      canLoop = false;
     });
     panel.add(disableLoop);
 
@@ -99,11 +97,6 @@ public class EditorView extends SwingAnimationView {
       timer.start();
     });
     panel.add(removeKeyframe);
-
-//call method that loops if looping is enabled
-//lastState();
-
-
   }
 
   @Override
@@ -113,28 +106,4 @@ public class EditorView extends SwingAnimationView {
 
     super.updateTimeline();
   }
-
-  /**
-   * Checks if looping is enabled and loops animation is allowed.
-   */
-  /*private void lastState() {
-//    var timelineList = panel.getTimeLineAsList();
-//    Collections.sort(timelineList);
-    while (canLoop) {
-      for (Map.Entry<String, Shape> entry : model.getElements().entrySet()) {
-        var currentShapeLog = entry.getValue().getTimeline().getLog();
-        for (ShapeState state : currentShapeLog) {
-          while (state.getTick() == currentTick
-              && currentShapeLog.get(currentShapeLog.size() - 1) == state) {
-
-////    if (timelineList.get(currentTick) == timelineList.get(timelineList.size() - 1)) {
-            timer.stop();
-            EditorView newView = new EditorView(this.model);
-            newView.render();
-          }
-        }
-      }
-    }
-  }*/
-
 }
