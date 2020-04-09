@@ -59,4 +59,16 @@ public class ControllerTests {
 
   }
 
+  @Test
+  public void testControllerEmpty() {
+    AnimationModel testModel = new BasicAnimationModel();
+
+
+    Controller con = new Controller(testModel);
+    con.playAnimation("text");
+
+    assertEquals("", con.getString());
+
+  }
+
 }
