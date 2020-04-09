@@ -6,6 +6,7 @@ import cs3500.animator.model.ShapeState;
 import java.awt.event.ActionEvent;
 import java.util.Map;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -76,6 +77,28 @@ public class EditorView extends SwingAnimationView {
         canLoop = false;
     });
     panel.add(disableLoop);
+
+    JButton addKeyframe = new JButton("Add Keyframe");
+    addKeyframe.addActionListener((ActionEvent e) -> {
+      timer.stop();
+      JOptionPane.showMessageDialog(this,
+          "Click on the shape you want to add a keyframe to");
+      //TODO handle mouse event
+      //model.addKeyframe();
+      timer.start();
+    });
+    panel.add(addKeyframe);
+
+    JButton removeKeyframe = new JButton("Remove Keyframe");
+    removeKeyframe.addActionListener((ActionEvent e) -> {
+      timer.stop();
+      JOptionPane.showMessageDialog(this,
+          "Click on the shape you want to remove a keyframe from");
+      //TODO handle mouse event
+      //model.deleteKeyframe();
+      timer.start();
+    });
+    panel.add(removeKeyframe);
 
 //call method that loops if looping is enabled
 //lastState();
