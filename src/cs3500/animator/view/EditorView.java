@@ -1,10 +1,7 @@
 package cs3500.animator.view;
 
 import cs3500.animator.model.AnimationModel;
-import cs3500.animator.model.Shape;
-import cs3500.animator.model.ShapeState;
 import java.awt.event.ActionEvent;
-import java.util.Map;
 import javax.swing.JButton;
 
 
@@ -77,9 +74,6 @@ public class EditorView extends SwingAnimationView {
     });
     panel.add(disableLoop);
 
-//call method that loops if looping is enabled
-//lastState();
-
 
   }
 
@@ -90,28 +84,5 @@ public class EditorView extends SwingAnimationView {
 
     super.updateTimeline();
   }
-
-  /**
-   * Checks if looping is enabled and loops animation is allowed.
-   */
-  /*private void lastState() {
-//    var timelineList = panel.getTimeLineAsList();
-//    Collections.sort(timelineList);
-    while (canLoop) {
-      for (Map.Entry<String, Shape> entry : model.getElements().entrySet()) {
-        var currentShapeLog = entry.getValue().getTimeline().getLog();
-        for (ShapeState state : currentShapeLog) {
-          while (state.getTick() == currentTick
-              && currentShapeLog.get(currentShapeLog.size() - 1) == state) {
-
-////    if (timelineList.get(currentTick) == timelineList.get(timelineList.size() - 1)) {
-            timer.stop();
-            EditorView newView = new EditorView(this.model);
-            newView.render();
-          }
-        }
-      }
-    }
-  }*/
 
 }
