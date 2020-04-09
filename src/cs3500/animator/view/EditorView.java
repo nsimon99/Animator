@@ -4,6 +4,7 @@ import cs3500.animator.model.AnimationModel;
 import cs3500.animator.model.Shape;
 import cs3500.animator.model.ShapeState;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -16,6 +17,10 @@ public class EditorView extends SwingAnimationView {
 
   boolean canLoop;
 
+  private boolean waitingForClick = false;
+  private boolean waitingToAdd = false;
+  private boolean waitingToDelete = false;
+
   /**
    * constructor for a view using builder.
    *
@@ -23,6 +28,8 @@ public class EditorView extends SwingAnimationView {
    */
   public EditorView(AnimationModel model) {
     super(model);
+    addMouseListener(new AnimatorMouseListener(this));
+
     canLoop = false;
 
     JButton start = new JButton("Start");
@@ -81,9 +88,9 @@ public class EditorView extends SwingAnimationView {
       timer.stop();
       JOptionPane.showMessageDialog(this,
           "Click on the shape you want to add a keyframe to");
-      //TODO handle mouse event
-      //model.addKeyframe();
-      timer.start();
+
+      this.waitForClick();
+      waitingToAdd = true;
     });
     panel.add(addKeyframe);
 
@@ -92,9 +99,9 @@ public class EditorView extends SwingAnimationView {
       timer.stop();
       JOptionPane.showMessageDialog(this,
           "Click on the shape you want to remove a keyframe from");
-      //TODO handle mouse event
-      //model.deleteKeyframe();
-      timer.start();
+
+      this.waitForClick();
+      waitingToDelete = true;
     });
     panel.add(removeKeyframe);
   }
@@ -105,5 +112,46 @@ public class EditorView extends SwingAnimationView {
     this.currentTick = canLoop && currentTick >= model.getLastTick() ? 0 : currentTick;
 
     super.updateTimeline();
+  }
+
+  protected void onClick(MouseEvent me) {
+    if (waitingForClick) {
+      this.waitingForClick = false;
+
+      if (waitingToAdd) {
+        addKeyframeOnClick(me.getX(), me.getY(), currentTick);
+      }
+      if (waitingToDelete) {
+        removeKeyframeOnClick(me.getX(), me.getY(), currentTick);
+      }
+      timer.start();
+    }
+  }
+
+  private void waitForClick() {
+    timer.stop();
+    waitingForClick = true;
+  }
+
+  private void addKeyframeOnClick(int x, int y, int t) {
+    try {
+      String shapeId = model.getShapeAtPosition(x, y, t);
+      model.addKeyframe(shapeId, t);
+    }
+    catch (IllegalArgumentException e) {
+      JOptionPane.showMessageDialog(this,
+          "No shape at given position!");
+    }
+  }
+
+  private void removeKeyframeOnClick(int x, int y, int t) {
+    try {
+      String shapeId = model.getShapeAtPosition(x, y, t);
+      model.deleteKeyframe(shapeId, t);
+    }
+    catch (IllegalArgumentException e) {
+      JOptionPane.showMessageDialog(this,
+          "No shape at given position!");
+    }
   }
 }

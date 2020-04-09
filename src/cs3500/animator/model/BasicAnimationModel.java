@@ -93,21 +93,20 @@ public class BasicAnimationModel implements AnimationModel {
   public void addKeyframe(String name, int t) {
     if (elements.containsKey(name)) {
       var timelineList = this.elements.get(name).getTimeline().getLog();
-      for(ShapeState state : timelineList) {
-        if(state.getTick() == t) {
+      for (ShapeState state : timelineList) {
+        if (state.getTick() == t) {
           state.stateType = StateType.KEYFRAME;
           break;
         }
       }
-    }
-    else {
+    } else {
       throw new IllegalArgumentException("No shape with ID: " + name);
     }
   }
 
   @Override
   public void deleteKeyframe(String name, int t) {
-    if(elements.containsKey(name)) {
+    if (elements.containsKey(name)) {
       var timelineList = this.elements.get(name).getTimeline().getLog();
       var indexOfLastKeyframe = 0;
       for (int i = 0; i < timelineList.size(); i++) {
@@ -122,8 +121,7 @@ public class BasicAnimationModel implements AnimationModel {
           indexOfLastKeyframe = i;
         }
       }
-    }
-    else {
+    } else {
       throw new IllegalArgumentException("No shape with ID: " + name);
     }
 
@@ -138,5 +136,22 @@ public class BasicAnimationModel implements AnimationModel {
       lastTick = shapeLastTick > lastTick ? shapeLastTick : lastTick;
     }
     return lastTick;
+  }
+
+  @Override
+  public String getShapeAtPosition(int x, int y, int t) {
+    for (Shape shape : elements.values()) {
+      ShapeState state = shape.getTimeline().get(t);
+      // For some reason height and width are switched...
+      // leave 25 px on each side for user error
+      int maxX = state.getPos().getX() + state.getDim().getHeight() + 25;
+      int maxY = state.getPos().getY() + state.getDim().getWidth() + 25;
+      int minX = state.getPos().getX() - 25;
+      int minY = state.getPos().getY() - 25;
+      if (x < maxX && x > minX && y < maxY && y > minY) {
+        return shape.getId();
+      }
+    }
+    throw new IllegalArgumentException("No shape at given position");
   }
 }

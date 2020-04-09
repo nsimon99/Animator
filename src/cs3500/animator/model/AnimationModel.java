@@ -99,10 +99,20 @@ public interface AnimationModel {
 
   /**
    * Gets the last tick value of this model.
+   *
    * @return the last tick value.
    */
   int getLastTick();
 
-
+  /**
+   * Get the ID of the Shape at the given coordinates at the given tick.
+   *
+   * @param x the x coordinate.
+   * @param y the y coordinate.
+   * @param t the tick.
+   * @return the ID of the Shape.
+   * @throws IllegalArgumentException if there is no shape at the given position.
+   */
+  String getShapeAtPosition(int x, int y, int t);
 
 }
