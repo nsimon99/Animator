@@ -49,7 +49,7 @@ public class SwingAnimationView extends JFrame implements AnimationView {
     this.setVisible(true);
   }
 
-  protected void updateTimeline() {
+  public void updateTimeline() {
     ArrayList<ShapeState> states = new ArrayList<>();
 
     for (Map.Entry<String, Shape> entry : model.getElements().entrySet()) {

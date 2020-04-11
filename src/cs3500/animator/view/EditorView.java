@@ -115,7 +115,7 @@ public class EditorView extends SwingAnimationView {
   }
 
   @Override
-  protected void updateTimeline() {
+  public void updateTimeline() {
     // if looping and if it's the last tick, set tick to 0.
     this.currentTick = canLoop && currentTick >= model.getLastTick() ? 0 : currentTick;
 

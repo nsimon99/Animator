@@ -11,6 +11,7 @@ import java.util.List;
  */
 public interface IEAEditorView extends IEasyAnimatorView {
 
+
   /**
    * Resets the focus of the program, so that the keyboard works.
    */

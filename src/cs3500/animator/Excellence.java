@@ -2,8 +2,6 @@ package cs3500.animator;
 
 import cs3500.animator.adapter.EditorAdapter;
 import cs3500.animator.model.AnimationModel;
-import cs3500.animator.provider.model.ReadOnlyEAOperations;
-import cs3500.animator.provider.view.EAEditorView;
 import cs3500.animator.util.AnimationBuilder;
 import cs3500.animator.util.AnimationModelBuilder;
 import cs3500.animator.util.AnimationReader;
@@ -72,7 +70,7 @@ public final class Excellence {
         view = new EditorView(model);
         break;
       case "provider":
-        view = new EditorAdapter(model,(new EAEditorView((ReadOnlyEAOperations) model)));
+        view = new EditorAdapter();
         break;
       default:
         throw new IllegalArgumentException("Invalid View Type");
