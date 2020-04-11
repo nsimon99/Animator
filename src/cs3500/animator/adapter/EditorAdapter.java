@@ -4,9 +4,18 @@ import cs3500.animator.model.AnimationModel;
 import cs3500.animator.provider.view.IEAEditorView;
 import cs3500.animator.view.AnimationPanel;
 import cs3500.animator.view.EditorView;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  * Adopter class for Editor Animation
@@ -15,6 +24,68 @@ public class EditorAdapter implements IEAEditorView {
   AnimationPanel panel;
   protected EditorView view;
   AnimationModel model;
+  private JButton playPauseButton;
+  private JButton restartButton;
+  private JButton speedUpButton;
+  private JButton slowDownButton;
+  private JButton loopbackButton;
+  private JButton keyCommandsButton;
+
+  // temporary
+  private JButton textViewButton;
+
+  private JLabel speedLabel;
+  private JLabel loopbackLabel;
+  private JLabel playingLabel;
+
+  private JPanel buttonsPanel;
+
+  // pop-up
+  private JPanel popupPanel;
+  private JScrollPane popupScrollPane;
+
+  // add shape
+  private JButton addShapeButton;
+  private JButton okAddButton;
+  private JTextField shapeName;
+  private List<JRadioButton> shapeTypes;
+
+  // remove shape
+  private JButton removeShapeButton;
+  private JButton okRemoveButton;
+  private List<JRadioButton> shapeNames;
+
+  // add key frame
+  private JButton addKeyframeButton;
+  private JButton okAddKeyframeButton;
+  private JButton okAddKeyframeTimeButton;
+  private JTextField time;
+
+  // remove key frame
+  private JButton removeKeyframeButton;
+  private JButton okRemoveKeyframeButton;
+  private JButton okRemoveKeyframeTimeButton;
+  private List<JRadioButton> shapeTimes;
+
+  // edit key frame
+  private JButton editKeyframeButton;
+  private JButton okEditKeyframeButton;
+  private JButton okEditKeyframeTimeButton;
+  private JButton okEditKeyframeFinalButton;
+  private JTextField width;
+  private JTextField height;
+  private JTextField x;
+  private JTextField y;
+  private JTextField r;
+  private JTextField g;
+  private JTextField b;
+
+  // clear animation
+  private JButton clearAnimationButton;
+
+  // clear shape
+  private JButton clearShapeButton;
+  private JButton okClearShapeButton;
 
   /**
    * Constructs the given editor view, using the given model.
@@ -51,21 +122,54 @@ public class EditorAdapter implements IEAEditorView {
   @Override
   public void resetFocus() {
 
+
   }
 
   @Override
   public void generateInfoPane(String message, String title) {
+    JTextArea text = new JTextArea(message);
+    text.setEditable(false);
+    JScrollPane pane = new JScrollPane(text, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    pane.setPreferredSize(new Dimension(500, 300));
+
+    JOptionPane.showMessageDialog(null, pane, title,
+        JOptionPane.INFORMATION_MESSAGE);
 
   }
 
   @Override
   public void addKeyListener(KeyListener kl) {
 
+
   }
 
   @Override
   public void addButtonListeners(ActionListener listener) {
-
+    playPauseButton.addActionListener(listener);
+    restartButton.addActionListener(listener);
+    speedUpButton.addActionListener(listener);
+    slowDownButton.addActionListener(listener);
+    loopbackButton.addActionListener(listener);
+    keyCommandsButton.addActionListener(listener);
+    textViewButton.addActionListener(listener);
+    addShapeButton.addActionListener(listener);
+    okAddButton.addActionListener(listener);
+    removeShapeButton.addActionListener(listener);
+    okRemoveButton.addActionListener(listener);
+    addKeyframeButton.addActionListener(listener);
+    okAddKeyframeButton.addActionListener(listener);
+    okAddKeyframeTimeButton.addActionListener(listener);
+    removeKeyframeButton.addActionListener(listener);
+    okRemoveKeyframeButton.addActionListener(listener);
+    okRemoveKeyframeTimeButton.addActionListener(listener);
+    editKeyframeButton.addActionListener(listener);
+    okEditKeyframeButton.addActionListener(listener);
+    okEditKeyframeTimeButton.addActionListener(listener);
+    okEditKeyframeFinalButton.addActionListener(listener);
+    clearAnimationButton.addActionListener(listener);
+    clearShapeButton.addActionListener(listener);
+    okClearShapeButton.addActionListener(listener);
   }
 
   @Override
