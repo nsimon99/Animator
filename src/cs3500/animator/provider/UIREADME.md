@@ -1,9 +1,0 @@
-Hey guys! Here's some info about our UI to get you started.
-
-Our entire UI is based mostly on button input, as well as a few keyboard shortcuts. Users of our program have access to a few key commands to control playback of the aniamtion (which can be looked up by pressing the key commands button), buttons to control animation playback, and buttons to edit the animation. 
-
-If a user wants to edit the animation, they can click on the respective action they want to take, and a pop-up window will appear. For example, if a user wants to add a shape, they can click on add shape, and a pop-up will appear asking them to enter an id in a text field, and to select the radio button of the type they want. They then hit the OK button in the pop-up, which closes the window and either updates the animation, or pops up an error message if they didn't select something. This same technqiue is used for all editing buttons, so that the main UI screen isn't too cluttered. Additionally, we rely on radio buttons over text fields to simplify things for the user whenever necessary, and to avoid as much weird input as possible. For example, if they want to remove a keyframe, first they select the shape they want from a button panel, then they hit ok, and then from a second, new pop-up window, they can select the time of the keyframe they want to remove from a second button panel. This way, it is easier for a user to know what they can actually edit.
-
-Finally, there is some extra functionality that we chose to implement just to let you know- a clear animation button, which wipes the entire animation, and a clear shape button, which removes all keyframes from a selected shape. We also included an "Animation Text" button, so that they user of our program can see an updated textual view of the animation at all times.
-
-Hopefully this gives you guys a good idea about our UI, and let us know if you have any further questions. Good luck!
