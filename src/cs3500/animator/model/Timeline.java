@@ -101,7 +101,7 @@ public class Timeline {
    * @return the state at that tick.
    * @throws IllegalArgumentException if no such state exists
    */
-  protected ShapeState getTick(int t) {
+  public ShapeState getTick(int t) {
     for (ShapeState state : this.log) {
       if (state.getTick() == t) {
         return state;

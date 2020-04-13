@@ -21,6 +21,15 @@ public class BasicAnimationModel implements AnimationModel {
     this.elements = new HashMap<>();
   }
 
+  /**
+   * Construct a new Animation Model from an existing Animation model.
+   * @param model the model to copy.
+   */
+  public BasicAnimationModel(AnimationModel model) {
+    this.bounds = model.getBounds();
+    this.elements = new HashMap<>(model.getElements());
+  }
+
   @Override
   public void addElement(Shape s) {
     elements.put(s.getId(), s);

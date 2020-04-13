@@ -1,7 +1,11 @@
 package cs3500.animator;
 
 import cs3500.animator.adapter.EditorAdapter;
+import cs3500.animator.adapter.IModelAdapter;
+import cs3500.animator.adapter.ModelAdapter;
 import cs3500.animator.model.AnimationModel;
+import cs3500.animator.model.BasicAnimationModel;
+import cs3500.animator.provider.view.EAEditorView;
 import cs3500.animator.util.AnimationBuilder;
 import cs3500.animator.util.AnimationModelBuilder;
 import cs3500.animator.util.AnimationReader;
@@ -70,7 +74,10 @@ public final class Excellence {
         view = new EditorView(model);
         break;
       case "provider":
-        view = new EditorAdapter();
+        //view = new EditorAdapter(, );
+        IModelAdapter modelAdapter = new ModelAdapter(model);
+        view = new EditorAdapter(modelAdapter, ticksPerSecond);
+
         break;
       default:
         throw new IllegalArgumentException("Invalid View Type");
