@@ -1,0 +1,6 @@
+Only thing I would change about our own code is maybe adding and implementing a separate interface
+for our editor view instead of just adding extra private methods. I think this would make the
+design much more flexible and easier to add on to like the editor view provided for us. Our
+experience with our providers was a positive one. We got our provider code in a timely manner.
+Everything was well-explained and documented. They were great about answering any questions we had
+and gave very detailed answers that were helpful.
