@@ -1,6 +1,9 @@
 package cs3500.animator;
 
+import cs3500.animator.adapter.ControllerAdapter;
 import cs3500.animator.adapter.EditorAdapter;
+import cs3500.animator.adapter.IModelAdapter;
+import cs3500.animator.adapter.ModelAdapter;
 import cs3500.animator.model.AnimationModel;
 import cs3500.animator.util.AnimationBuilder;
 import cs3500.animator.util.AnimationModelBuilder;
@@ -56,26 +59,55 @@ public final class Excellence {
 
     AnimationModel model = animationReader.parseFile(reader, modelBuilder);
     AnimationView view;
-    switch (viewType) {
-      case "svg":
-        view = new SVGView(model, outputDest, ticksPerSecond);
-        break;
-      case "text":
-        view = new TextView(model, System.out);
-        break;
-      case "visual":
-        view = new SwingAnimationView(model);
-        break;
-      case "editor":
-        view = new EditorView(model);
-        break;
-      case "provider":
-        view = new EditorAdapter();
-        break;
-      default:
-        throw new IllegalArgumentException("Invalid View Type");
+    if(viewType.equals("svg")) {
+      view = new SVGView(model, outputDest, ticksPerSecond);
+      view.render();
+    }
+    else if(viewType.equals("text")) {
+      view = new TextView(model, System.out);
+      view.render();
+    }
+    else if(viewType.equals("visual")) {
+      view = new SwingAnimationView(model);
+      view.render();
+    }
+    else if(viewType.equals("editor")) {
+      view = new EditorView(model);
+      view.render();
+    }
+    else if(viewType.equals("provider")) {
+      IModelAdapter modelAdapter = new ModelAdapter(model);
+   EditorAdapter edit = new EditorAdapter(modelAdapter, ticksPerSecond);
+      ControllerAdapter cont = new ControllerAdapter((ModelAdapter) modelAdapter,edit);
+      cont.animate();
     }
 
-    view.render();
-  }
+
+
+    }
+//    switch (viewType) {
+//      case "svg":
+//        view = new SVGView(model, outputDest, ticksPerSecond);
+//        break;
+//      case "text":
+//        view = new TextView(model, System.out);
+//        break;
+//      case "visual":
+//        view = new SwingAnimationView(model);
+//        break;
+//      case "editor":
+//        view = new EditorView(model);
+//        break;
+//      case "provider":
+//        //view = new EditorAdapter(, );
+//        IModelAdapter modelAdapter = new ModelAdapter(model);
+//        view = new EditorAdapter(modelAdapter, ticksPerSecond);
+//
+//        break;
+//      default:
+//        throw new IllegalArgumentException("Invalid View Type");
+//    }
+//
+//    view.render();
+//  }
 }
