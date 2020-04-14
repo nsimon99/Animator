@@ -17,8 +17,8 @@ public class ControllerAdapter implements IEasyAnimatorController {
   private int currentTick;
   private boolean loop;
 
-  private String shapeName = "";
-  private int editTime = 0;
+  private String shapeName;
+  private int editTime;
 
 
   /**
@@ -28,6 +28,8 @@ public class ControllerAdapter implements IEasyAnimatorController {
    * @param view  type of view for user
    */
   public ControllerAdapter(ModelAdapter model, EditorAdapter view) {
+    this.shapeName = "";
+    this.editTime = 0;
     this.model = model;
     this.view = view;
     currentTick = 0;
@@ -92,6 +94,7 @@ public class ControllerAdapter implements IEasyAnimatorController {
         } else {
           loop = true;
         }
+        break;
       case "Add Keyframe":
         view.generateAddKeyframePopup1();
         view.generateAddKeyframePopup2();
@@ -154,7 +157,7 @@ public class ControllerAdapter implements IEasyAnimatorController {
 
 
   /**
-   * if looping and if it's the last tick, set tick to 0 and restart animation
+   * if looping and if it's the last tick, set tick to 0 and restart animation.
    */
   private void getLoop() {
     this.currentTick = loop && currentTick >= model.getEndingTime() ? 0 : currentTick;

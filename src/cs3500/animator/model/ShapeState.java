@@ -84,7 +84,7 @@ public class ShapeState implements Comparable<ShapeState> {
   @Override
   public int compareTo(ShapeState state) {
     if (state == null) {
-      throw new NullPointerException("object to compare to is null");
+      throw new IllegalArgumentException("object to compare to is null");
     }
     return Integer.compare(this.tick, state.tick);
   }

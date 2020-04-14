@@ -49,6 +49,9 @@ public class SwingAnimationView extends JFrame implements AnimationView {
     this.setVisible(true);
   }
 
+  /**
+   * Updates the current frame of the animation.
+   */
   public void updateTimeline() {
     ArrayList<ShapeState> states = new ArrayList<>();
 

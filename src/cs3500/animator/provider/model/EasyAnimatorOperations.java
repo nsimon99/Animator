@@ -55,7 +55,8 @@ public interface EasyAnimatorOperations extends ReadOnlyEAOperations {
    * @throws IllegalArgumentException if the given ID does not exist within the model
    * @throws IllegalArgumentException if the given motion is invalid
    */
-  void addMotion(String id, cs3500.animator.model.ShapeState start, cs3500.animator.model.ShapeState end, int startTime, int endTime);
+  void addMotion(String id, cs3500.animator.provider.model.ShapeState start,
+      cs3500.animator.provider.model.ShapeState end, int startTime, int endTime);
 
 
   /**

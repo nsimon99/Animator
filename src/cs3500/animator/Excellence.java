@@ -59,29 +59,25 @@ public final class Excellence {
 
     AnimationModel model = animationReader.parseFile(reader, modelBuilder);
     AnimationView view;
-    if(viewType.equals("svg")) {
+    if (viewType.equals("svg")) {
       view = new SVGView(model, outputDest, ticksPerSecond);
       view.render();
-    }
-    else if(viewType.equals("text")) {
+    } else if (viewType.equals("text")) {
       view = new TextView(model, System.out);
       view.render();
-    }
-    else if(viewType.equals("visual")) {
+    } else if (viewType.equals("visual")) {
       view = new SwingAnimationView(model);
       view.render();
-    }
-    else if(viewType.equals("editor")) {
+    } else if (viewType.equals("editor")) {
       view = new EditorView(model);
       view.render();
-    }
-    else if(viewType.equals("provider")) {
+    } else if (viewType.equals("provider")) {
       IModelAdapter modelAdapter = new ModelAdapter(model);
-   EditorAdapter edit = new EditorAdapter(modelAdapter, ticksPerSecond);
-      ControllerAdapter cont = new ControllerAdapter((ModelAdapter) modelAdapter,edit);
+      EditorAdapter edit = new EditorAdapter(modelAdapter, ticksPerSecond);
+      ControllerAdapter cont = new ControllerAdapter((ModelAdapter) modelAdapter, edit);
       cont.animate();
     }
 
 
-    }
+  }
 }
