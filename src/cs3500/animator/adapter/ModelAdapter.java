@@ -21,6 +21,7 @@ public class ModelAdapter extends BasicAnimationModel implements IModelAdapter {
 
   /**
    * Constructs a new Model Adapter from an existing BasicAnimationModel.
+   *
    * @param model the model to copy.
    */
   public ModelAdapter(AnimationModel model) {

@@ -8,9 +8,9 @@ import javax.swing.Timer;
 
 /**
  * Controller that connects new view and model.
- *
  */
 public class ControllerAdapter implements IEasyAnimatorController {
+
   private IModelAdapter model;
   private EditorAdapter view;
   private Timer timer;
@@ -20,8 +20,9 @@ public class ControllerAdapter implements IEasyAnimatorController {
 
   /**
    * Constructor for the controller.
+   *
    * @param model given model with information
-   * @param view type of view for user
+   * @param view  type of view for user
    */
   public ControllerAdapter(ModelAdapter model, EditorAdapter view) {
     this.model = model;
@@ -30,12 +31,12 @@ public class ControllerAdapter implements IEasyAnimatorController {
     this.timer = new Timer(100, e -> {
       currentTick++;
       view.drawAt(currentTick);
+      getLoop();
       view.refresh();
       view.repaint();
 
     });
-loop = true;
-getLoop();
+    loop = true;
 
   }
 
@@ -59,15 +60,15 @@ getLoop();
 
   /**
    * assigns action command to whatever button is being pressed.
+   *
    * @param e Action event to be performed.
    */
   private void getAction(ActionEvent e) {
     switch (e.getActionCommand()) {
       case "Play/Pause":
-        if(timer.isRunning()) {
+        if (timer.isRunning()) {
           timer.stop();
-        }
-        else {
+        } else {
           timer.start();
         }
         break;
@@ -82,10 +83,11 @@ getLoop();
         timer.setDelay(200);
         break;
       case "Loopback":
-       if (loop) {
-         loop = false;
-       }
-       else loop = true;
+        if (loop) {
+          loop = false;
+        } else {
+          loop = true;
+        }
         break;
       default:
         throw new IllegalArgumentException("Can't preform action.");
@@ -95,7 +97,7 @@ getLoop();
   public void getLoop() {
     // if looping and if it's the last tick, set tick to 0.
     this.currentTick = loop && currentTick >= model.getEndingTime() ? 0 : currentTick;
-    this.animate();
+    view.drawAt(currentTick);
   }
 
 
