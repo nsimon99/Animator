@@ -11,11 +11,13 @@ import javax.swing.Timer;
  */
 public class ControllerAdapter implements IEasyAnimatorController {
 
-  private IModelAdapter model;
+  private ModelAdapter model;
   private EditorAdapter view;
   private Timer timer;
   private int currentTick;
   private boolean loop;
+
+  private String shapeName = "";
 
 
   /**
@@ -64,6 +66,7 @@ public class ControllerAdapter implements IEasyAnimatorController {
    * @param e Action event to be performed.
    */
   private void getAction(ActionEvent e) {
+
     switch (e.getActionCommand()) {
       case "Play/Pause":
         if (timer.isRunning()) {
@@ -103,9 +106,30 @@ public class ControllerAdapter implements IEasyAnimatorController {
             view.getTimeFromText()
         ));
         break;
+      case "OK Remove Keyframe":
+      case "OK Edit Keyframe":
+      case "OK Add Keyframe":
+        shapeName = view.getShapeNameFromButtons();
+        view.closePopup();
+        break;
+      case "OK Add Keyframe Time":
+        int time = Integer.parseInt(view.getTimeFromText());
+        view.closePopup();
+        model.addKeyframe(shapeName, time);
+        break;
+      case "OK Edit Keyframe Time":
+        int editTime = Integer.parseInt(view.getTimeFromButtons());
+        view.closePopup();
+        break;
+      case "OK Remove Keyframe Time":
+        int removeTime = Integer.parseInt(view.getTimeFromButtons());
+        view.closePopup();
+        model.deleteKeyframe(shapeName, removeTime);
+        break;
 
       default:
-        throw new IllegalArgumentException("Can't preform action.");
+        System.out.println(e.getActionCommand());
+        throw new IllegalArgumentException("Can't perform action.");
     }
   }
 
