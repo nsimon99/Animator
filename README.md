@@ -1,4 +1,3 @@
-<h1>changes</h1>
+All features that were required in assignment 7 work -- Play/Pause, Enable/Disable Looping, Add/Remove/Edit Keyframes, Increase/Decrease Speed. 
 
-* Rewrote Swing view because it didn't work.
-* Added several methods to Model interface to enable editing (documented in code).
+We did not implement the additional features that our provider added.
