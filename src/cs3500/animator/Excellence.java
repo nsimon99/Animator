@@ -83,31 +83,5 @@ public final class Excellence {
     }
 
 
-
     }
-//    switch (viewType) {
-//      case "svg":
-//        view = new SVGView(model, outputDest, ticksPerSecond);
-//        break;
-//      case "text":
-//        view = new TextView(model, System.out);
-//        break;
-//      case "visual":
-//        view = new SwingAnimationView(model);
-//        break;
-//      case "editor":
-//        view = new EditorView(model);
-//        break;
-//      case "provider":
-//        //view = new EditorAdapter(, );
-//        IModelAdapter modelAdapter = new ModelAdapter(model);
-//        view = new EditorAdapter(modelAdapter, ticksPerSecond);
-//
-//        break;
-//      default:
-//        throw new IllegalArgumentException("Invalid View Type");
-//    }
-//
-//    view.render();
-//  }
 }

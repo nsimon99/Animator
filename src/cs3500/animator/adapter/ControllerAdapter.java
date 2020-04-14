@@ -88,14 +88,32 @@ public class ControllerAdapter implements IEasyAnimatorController {
         } else {
           loop = true;
         }
+      case "Add Keyframe":
+        view.generateAddKeyframePopup1();
+        view.generateAddKeyframePopup2();
         break;
+      case "Remove Keyframe":
+        view.generateRemoveKeyframePopup1();
+        view.generateRemoveKeyFramePopup2(view.getShapeNameFromButtons());
+        break;
+      case "Edit Keyframe":
+        view.generateEditKeyframePopup1();
+        view.generateEditKeyframePopup2(view.getShapeNameFromButtons());
+        view.generateEditKeyframePopup3(view.getShapeNameFromButtons(), Integer.parseInt(
+            view.getTimeFromText()
+        ));
+        break;
+
       default:
         throw new IllegalArgumentException("Can't preform action.");
     }
   }
 
-  public void getLoop() {
-    // if looping and if it's the last tick, set tick to 0.
+
+  /**
+   * if looping and if it's the last tick, set tick to 0 and restart animation
+   */
+  private void getLoop() {
     this.currentTick = loop && currentTick >= model.getEndingTime() ? 0 : currentTick;
     view.drawAt(currentTick);
   }
