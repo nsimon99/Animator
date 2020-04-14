@@ -1,9 +1,9 @@
 package cs3500.animator.adapter;
 
 import cs3500.animator.provider.controller.IEasyAnimatorController;
-import cs3500.animator.view.AnimationView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.Timer;
 
 /**
@@ -18,6 +18,7 @@ public class ControllerAdapter implements IEasyAnimatorController {
   private boolean loop;
 
   private String shapeName = "";
+  private int editTime = 0;
 
 
   /**
@@ -97,17 +98,22 @@ public class ControllerAdapter implements IEasyAnimatorController {
         break;
       case "Remove Keyframe":
         view.generateRemoveKeyframePopup1();
-        view.generateRemoveKeyFramePopup2(view.getShapeNameFromButtons());
+
         break;
       case "Edit Keyframe":
         view.generateEditKeyframePopup1();
-        view.generateEditKeyframePopup2(view.getShapeNameFromButtons());
-        view.generateEditKeyframePopup3(view.getShapeNameFromButtons(), Integer.parseInt(
-            view.getTimeFromText()
-        ));
+
         break;
       case "OK Remove Keyframe":
+        shapeName = view.getShapeNameFromButtons();
+        view.closePopup();
+        view.generateRemoveKeyFramePopup2(shapeName);
+        break;
       case "OK Edit Keyframe":
+        shapeName = view.getShapeNameFromButtons();
+        view.closePopup();
+        view.generateEditKeyframePopup2(shapeName);
+        break;
       case "OK Add Keyframe":
         shapeName = view.getShapeNameFromButtons();
         view.closePopup();
@@ -118,13 +124,26 @@ public class ControllerAdapter implements IEasyAnimatorController {
         model.addKeyframe(shapeName, time);
         break;
       case "OK Edit Keyframe Time":
-        int editTime = Integer.parseInt(view.getTimeFromButtons());
+        editTime = Integer.parseInt(view.getTimeFromButtons());
         view.closePopup();
+        view.generateEditKeyframePopup3(shapeName, editTime);
         break;
       case "OK Remove Keyframe Time":
         int removeTime = Integer.parseInt(view.getTimeFromButtons());
         view.closePopup();
         model.deleteKeyframe(shapeName, removeTime);
+        break;
+      case "OK Edit Keyframe Final":
+        List<String> responses = view.getShapeStateTextFields();
+        view.closePopup();
+        model.editKeyframe(shapeName, editTime,
+            Integer.parseInt(responses.get(0)),
+            Integer.parseInt(responses.get(1)),
+            Integer.parseInt(responses.get(2)),
+            Integer.parseInt(responses.get(3)),
+            Integer.parseInt(responses.get(4)),
+            Integer.parseInt(responses.get(5)),
+            Integer.parseInt(responses.get(6)));
         break;
 
       default:
